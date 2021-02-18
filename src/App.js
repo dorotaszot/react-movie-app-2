@@ -28,9 +28,17 @@ function App() {
     getMoviesRequest(searchValue);
   }, [searchValue])
 
-  const addMoviesToFavourites = (movie) => {
+  const addMovieToFavourites = (movie) => {
     const newFavouritesArr = [...favourites, movie];
     setFavourites(newFavouritesArr);
+  }
+
+  const removeMovieFromFavourites = (movie) => {
+    const newFavouritesArr = favourites.filter((favourite) => 
+      favourite.imdbID !== movie.imdbID
+    );
+      setFavourites(newFavouritesArr);
+    
   }
 
   return (
@@ -40,13 +48,13 @@ function App() {
         <SearchBox searchValue={searchValue} setSearchValue={setSearchValue}/>
       </div>
       <div className="row">
-        <MovieList movies={movies} handleFavouritesClick={addMoviesToFavourites} moveFavourites={AddToFavourites}/> 
+        <MovieList movies={movies} handleFavouritesClick={addMovieToFavourites} moveFavourites={AddToFavourites}/> 
       </div>
       <div className="row d-flex align-items-center justify-content-between">
         <MovieListHeading heading='Favourites' />
         </div>
-        <div className="row">
-          <MovieList movies={favourites} handleFavouritesClick={addMoviesToFavourites} moveFavourites={RemoveFromFavourites} /> 
+      <div className="row">
+        <MovieList movies={favourites} handleFavouritesClick={removeMovieFromFavourites} moveFavourites={RemoveFromFavourites} /> 
       </div>
     </div>
   );
